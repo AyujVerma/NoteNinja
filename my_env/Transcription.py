@@ -27,7 +27,7 @@ def extract_notes(audio_file) -> speech.RecognizeResponse:
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         language_code="en-US",
         sample_rate_hertz = 44100,
-        audio_channel_count = 2,
+        audio_channel_count = 1,
         enable_automatic_punctuation=True
     )
 
