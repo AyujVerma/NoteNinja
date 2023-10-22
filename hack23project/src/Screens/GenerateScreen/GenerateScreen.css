@@ -1,0 +1,31 @@
+.generate-screen {
+    background-color: #dfebf8;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-bar {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.blurb {
+    font-family: 'DM Sans', sans-serif;
+    text-transform: lowercase;
+    font-size: 24px;
+    color: #051923;
+    text-align: center;
+}
+
+.load-text {
+    font-family: 'DM Sans', sans-serif;
+    text-transform: lowercase;
+    font-size: 18px;
+    color: #051923;
+    text-align: center;
+    font-style: italic;
+}
