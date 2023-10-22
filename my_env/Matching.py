@@ -55,8 +55,6 @@ def preprocess_transcription_dict(transcription_keyword_dict, slide_dict):
         transcription_keyword_dict.remove(key)
 
 def match(audio_file, pptx_file):
-    # audio_file = "./my_env/long.wav"
-    # pptx_file = "./my_env/garbage_collection.pptx"
     transcription_keyword_dict, transcript = Transcription.extract_notes(audio_file)
     body_text, slide_dict, title_dict, ppt_sents = Transcription.SlidesScrape.extract_notes_from_slides(pptx_file)
     nlp = spacy.load('en_core_web_sm')
@@ -69,8 +67,6 @@ def match(audio_file, pptx_file):
                 if (token.orth_.lower() != token.lemma_.lower()):
                     lemmatized_sentence.append(token.lemma_.lower())
         lemmatized_transcript.append(lemmatized_sentence) 
-    # preprocess_transcription_dict(transcription_keyword_dict, slide_dict)
-    # wv = KeyedVectors.load_word2vec_format('word2vec\\GoogleNews-vectors-negative300.bin', binary=True)
     model = Word2Vec(sentences=common_texts, vector_size=100,window=5, min_count=1, workers=4)
     model.build_vocab(lemmatized_transcript, update=True)
     model.train(lemmatized_transcript, total_examples=model.corpus_count, epochs=10)
@@ -88,12 +84,13 @@ def match(audio_file, pptx_file):
             prev_index = index[0]
             sentence_list = map_sentences_to_slides(index, transcription_keyword_dict, slide_vector, wv, slide_to_sentence, slide_key)
         slide_to_sentence[slide_key] = sentence_list
-    for key in slide_to_sentence.keys():
-        print(key + ": " + str(slide_to_sentence[key]))
-                
+    
+    # for key in slide_to_sentence.keys():
+    #     print(key + ": " + str(slide_to_sentence[key]))
+    return slide_to_sentence     
             
             
     
 
-if __name__ == "__main__":
-    match("./my_env/chaining.wav", "./my_env/garbage_collection.pptx")
+# if __name__ == "__main__":
+#     match("./my_env/chaining.wav", "./my_env/garbage_collection.pptx")
