@@ -1,13 +1,11 @@
 
 # Imports the Google Cloud client library
-import io
-import re
 import KeywordExtract
-import SlidesScrape
 from google.oauth2 import service_account
 from google.cloud import speech
-import gensim.downloader as api
-
+import SlidesScrape
+import io
+import re
 
 def extract_notes(audio_file) -> speech.RecognizeResponse:
     transcription_keyword_dict = dict()
@@ -47,11 +45,13 @@ def extract_notes(audio_file) -> speech.RecognizeResponse:
             transcription_keyword_dict[sent] = filtered_words
     return transcription_keyword_dict
         
-if __name__ == "__main__":
-    audio_file = "./my_env/long.wav"
-    pptx_file = "./my_env/garbage_collection.pptx"
-    transcription_keyword_dict = extract_notes(audio_file)
-    body_text, slide_dict, title_dict = SlidesScrape.extract_notes_from_slides(pptx_file)
+# if __name__ == "__main__":
+#     audio_file = "./my_env/long.wav"
+#     pptx_file = "./my_env/garbage_collection.pptx"
+#     transcription_keyword_dict = extract_notes(audio_file)
+#     body_text, slide_dict, title_dict = SlidesScrape.extract_notes_from_slides(pptx_file)
+    
+    
     
     
     

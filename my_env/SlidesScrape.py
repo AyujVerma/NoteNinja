@@ -35,19 +35,20 @@ def extract_notes_from_slides(file_path):
                   text_pair = [shape.image, shape.alt_text]
                   slide_dict[shape.alt_text] = set(KeywordExtract.get_keywords(shape.alt_text))
                   images.append(shape.image)
+                  body_text.append(text_pair)
                   list_key.append(text_pair)
             title_dict[title] = list_key
     return body_text, slide_dict, title_dict
 
-# Example usage
-pptx_file = "./my_env/garbage_collection.pptx"
-body_text, slide_dict, title_dict = extract_notes_from_slides(pptx_file)
+# # Example usage
+# pptx_file = "./my_env/garbage_collection.pptx"
+# body_text, slide_dict, title_dict = extract_notes_from_slides(pptx_file)
 
-print("\nBody Text:")
-print(body_text)
+# print("\nBody Text:")
+# print(body_text)
     
-print("\nSlide Dict")
-print(slide_dict)
+# print("\nSlide Dict")
+# print(slide_dict)
 
-print("\nTitle Dict")
-print(title_dict)
+# print("\nTitle Dict")
+# print(title_dict)
