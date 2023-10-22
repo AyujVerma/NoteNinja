@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './GenerateScreen.css';
 import logo from '../../assets/image-removebg-preview.png';
 import PDFViewer from './PDFViewer';
-import { getDownloadURL, ref } from 'firebase/storage'; // Import the Firebase Storage functions
+import { getDownloadURL, ref, getStorage, deleteObject } from 'firebase/storage'; // Import the Firebase Storage functions
 import { storage } from '../../firebase.js';
 
 const GenerateScreen = () => {
@@ -10,8 +10,19 @@ const GenerateScreen = () => {
     const [refreshed, setRefreshed] = useState(false); // State to track if the page has been refreshed
 
     useEffect(() => {
+
+        // // Create a reference to the file to delete
+        // const desertRef = ref(storage, 'output.pdf');
+
+        // // Delete the file
+        // deleteObject(desertRef).then(() => {
+        // // File deleted successfully
+        // }).catch((error) => {
+        // // Uh-oh, an error occurred!
+        // });
+
         // Fetch the download URL for the PDF from Firebase Storage
-        const storagePath = 'output/output.pdf'; // Replace with your file path
+        const storagePath = 'output.pdf'; // Replace with your file path
         const pdfStorageRef = ref(storage, storagePath); // Create a reference to your PDF
 
         // Get the download URL and set it in the state

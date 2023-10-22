@@ -6,6 +6,7 @@ import logo from "../HomeScreen/image-removebg-preview.png"
 import {storage} from "../../firebase.js";
 import {ref, uploadBytes, uploadString} from "firebase/storage";
 import {v4} from "uuid";
+import axios from "axios";
 
 const HomeScreen = () => {
   const [filesSlides, setFilesSlides] = useState([]); // State for lecture slides
@@ -21,12 +22,32 @@ const HomeScreen = () => {
     }
     const slideRef = ref(storage, `slides/${filesSlides[0].name}`)
     uploadBytes(slideRef, filesSlides[0]).then(() => {
-    })
-    const audioRef = ref(storage, `audio/${filesAudio[0].name}`)
-    uploadBytes(audioRef, filesAudio[0]).then(() => {
+      const audioRef = ref(storage, `audio/${filesAudio[0].name}`)
+      uploadBytes(audioRef, filesAudio[0]).then(() => {
+        document.getElementById("loading").hidden = false;
+        getData(filesSlides[0].name, filesAudio[0].name);
+      })
     })
 
+
+
+
+
+
+
   };
+
+
+  function getData(slides_name, audio_name) {
+    axios({
+      method: "GET",
+      url:"http://127.0.0.1:5000/output?slides=" + slides_name + "&audio=" + audio_name,
+    })
+    .then((response) => {
+      const res =response.data
+      window.location.href="notes"
+    }).catch((error) => {
+    })}
 
   return (
     <div className="home-screen">
@@ -43,6 +64,7 @@ const HomeScreen = () => {
           <button onClick={handleGenerateClick} className="generate-button" style={{ fontFamily: 'DM Sans, sans-serif'}}>Generate</button>
         </div>
       </div>
+      <p hidden className='load-text' id="loading">slicing...</p>
     </div>
   );
 };
