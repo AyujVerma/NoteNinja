@@ -51,6 +51,7 @@ def segment_and_output(audio_file, pptx_file):
                 if y < 50:
                     c.showPage()
                     y = 800
+                    c.setFont('Times-Bold', 15)
                 c.drawString(x, y, str)
         if y < 50:
             c.showPage()
@@ -58,7 +59,6 @@ def segment_and_output(audio_file, pptx_file):
         for entry in title_dict[key]:
             if entry[0] is not None: #image
                 image = entry[0]
-                print(type(image))
                 openImage = Image.open(BytesIO(image))
                 openImage = openImage.convert('RGB')
                 file_name = "temp" + append + ".jpeg"
@@ -88,6 +88,27 @@ def segment_and_output(audio_file, pptx_file):
                 if y < 50:
                     c.showPage()
                     y = 800
+                c.setFont('Times-Roman', 11)
+                put_sub_text = False
+                for note in mappings[entry[1]]:
+                    put_sub_text = True
+                    wrapped = wrap_string(note, False)
+                    if len(wrapped) == 0:
+                        c.drawString(x + X_INCREMENT, y, "No notes")
+                    else:
+                        for str in wrapped:
+                            y -= Y_INCREMENT
+                            if y < 50:
+                                c.showPage()
+                                y = 800
+                                c.setFont('Times-Roman', 11)
+                            c.drawString(x + X_INCREMENT, y, str)
+                    if (put_sub_text):
+                        y -= Y_INCREMENT
+                        if y < 50:
+                            c.showPage()
+                            y = 800
+                            c.setFont('Times-Roman', 11)
             else:
                 c.setFont('Times-Bold', 13)
                 wrapped = wrap_string(entry[1], True)
@@ -99,6 +120,7 @@ def segment_and_output(audio_file, pptx_file):
                         if y < 50:
                             c.showPage()
                             y = 800
+                            c.setFont('Times-Bold', 13)
                         c.drawString(x + X_SMALL_INCREMENT, y, str)
                 c.setFont('Times-Roman', 11)
                 put_sub_text = False
@@ -113,12 +135,14 @@ def segment_and_output(audio_file, pptx_file):
                             if y < 50:
                                 c.showPage()
                                 y = 800
+                                c.setFont('Times-Roman', 11)
                             c.drawString(x + X_INCREMENT, y, str)
                 if (put_sub_text):
                     y -= Y_INCREMENT
                     if y < 50:
                         c.showPage()
                         y = 800
+                        c.setFont('Times-Roman', 11)
     c.save()
     # Put your local file path 
     fileName = "output.pdf"

@@ -64,7 +64,9 @@ const HomeScreen = () => {
           <button onClick={handleGenerateClick} className="generate-button" style={{ fontFamily: 'DM Sans, sans-serif'}}>Generate</button>
         </div>
       </div>
-      <p hidden className='load-text' id="loading">slicing...</p>
+      {/* <p hidden className='load-text' id="loading">slicing...</p> */}
+      <p hidden className="looping-ellipsis" id="loading">slicing</p>
+
     </div>
   );
 };
