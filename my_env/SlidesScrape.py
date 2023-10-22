@@ -34,8 +34,9 @@ def extract_notes_from_slides(file_path):
                                     all_sents += sent + ". "
                         frame_counter += 1
                 if hasattr(shape, "image"):
+                  image = shape.image
                   all_sents += shape.alt_text + ". "
-                  text_pair = [shape.image, shape.alt_text]
+                  text_pair = [image.blob, shape.alt_text]
                   slide_dict[shape.alt_text] = KeywordExtract.get_keywords(shape.alt_text)
                   images.append(shape.image)
                   body_text.append(text_pair)

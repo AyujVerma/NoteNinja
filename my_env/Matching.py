@@ -87,7 +87,7 @@ def match(audio_file, pptx_file):
     
     # for key in slide_to_sentence.keys():
     #     print(key + ": " + str(slide_to_sentence[key]))
-    return slide_to_sentence, body_text     
+    return slide_to_sentence, body_text, title_dict     
             
             
     
