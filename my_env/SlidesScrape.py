@@ -5,6 +5,7 @@ import re
 delimiter_pattern = r'[.!?\n]'
 
 def extract_notes_from_slides(file_path):
+    all_sents = ""
     presentation = Presentation(file_path)
     slide_dict = dict()
     title_dict = dict()
@@ -28,17 +29,19 @@ def extract_notes_from_slides(file_path):
                                 if (len(sent) > 0 and sent != None):
                                     text_pair = [None, sent]
                                     body_text.append(text_pair)
-                                    slide_dict[sent] = set(KeywordExtract.get_keywords(sent))
+                                    slide_dict[sent] = KeywordExtract.get_keywords(sent)
                                     list_key.append(text_pair)
+                                    all_sents += sent + ". "
                         frame_counter += 1
                 if hasattr(shape, "image"):
+                  all_sents += shape.alt_text + ". "
                   text_pair = [shape.image, shape.alt_text]
-                  slide_dict[shape.alt_text] = set(KeywordExtract.get_keywords(shape.alt_text))
+                  slide_dict[shape.alt_text] = KeywordExtract.get_keywords(shape.alt_text)
                   images.append(shape.image)
                   body_text.append(text_pair)
                   list_key.append(text_pair)
             title_dict[title] = list_key
-    return body_text, slide_dict, title_dict
+    return body_text, slide_dict, title_dict, all_sents
 
 # # Example usage
 # pptx_file = "./my_env/garbage_collection.pptx"
