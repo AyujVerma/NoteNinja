@@ -43,7 +43,7 @@ def extract_notes(audio_file) -> speech.RecognizeResponse:
         if (len(sent) > 0):
             filtered_words = KeywordExtract.get_keywords(sent)
             transcription_keyword_dict[sent] = filtered_words
-    return transcription_keyword_dict
+    return transcription_keyword_dict, transcript
         
 # if __name__ == "__main__":
 #     audio_file = "./my_env/long.wav"
