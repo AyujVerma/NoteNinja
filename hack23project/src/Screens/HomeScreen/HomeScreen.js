@@ -6,10 +6,11 @@ import logo from "../HomeScreen/image-removebg-preview.png"
 import {storage} from "../../firebase.js";
 import {ref, uploadBytes, uploadString} from "firebase/storage";
 import {v4} from "uuid";
-
+import { useNavigate } from 'react-router-dom';
 const HomeScreen = () => {
   const [filesSlides, setFilesSlides] = useState([]); // State for lecture slides
   const [filesAudio, setFilesAudio] = useState([]);   // State for audio
+  const navigate = useNavigate();
 
   const handleGenerateClick = () => {
     // Implement the generate functionality here
@@ -25,7 +26,7 @@ const HomeScreen = () => {
     const audioRef = ref(storage, `audio/${filesAudio[0].name}`)
     uploadBytes(audioRef, filesAudio[0]).then(() => {
     })
-
+    navigate('/generate');
   };
 
   return (

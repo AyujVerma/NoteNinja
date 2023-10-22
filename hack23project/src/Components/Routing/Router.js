@@ -1,17 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Routes , Route } from 'react-router-dom';
 import HomeScreen from '../../Screens/HomeScreen/HomeScreen.js';
 import GenerateScreen from '../../Screens/GenerateScreen/GenerateScreen.js';
 
-const AppRouter = () => {
+function AppRouter() {
   return (
-    <Router>
+    <div className="App">
       <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/generate" element={<GenerateScreen />} />
+        <Route path='/generate' element={<GenerateScreen/>} />
+        <Route path='/' element={<HomeScreen/>} />
       </Routes>
-    </Router>
+    </div>
   );
-};
+}
 
 export default AppRouter;
