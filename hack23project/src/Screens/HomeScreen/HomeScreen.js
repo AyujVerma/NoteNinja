@@ -3,6 +3,9 @@ import './HomeScreen.css';
 import Slides from "../../Components/Slides/slides.js";
 import Audio from "../../Components/Audio/audio.js";
 import logo from "../HomeScreen/image-removebg-preview.png"
+import {storage} from "../../firebase.js";
+import {ref, uploadBytes, uploadString} from "firebase/storage";
+import {v4} from "uuid";
 
 const HomeScreen = () => {
   const [filesSlides, setFilesSlides] = useState([]); // State for lecture slides
@@ -12,6 +15,17 @@ const HomeScreen = () => {
     // Implement the generate functionality here
     // You can use filesSlides and filesAudio to generate something
     // For example, you can create a function that combines the data from these files.
+    if (filesSlides[0] == null || filesAudio[0] == null) {
+      alert("Please input both the slides and the audio");
+      return;
+    }
+    const slideRef = ref(storage, `slides/${filesSlides[0].name}`)
+    uploadBytes(slideRef, filesSlides[0]).then(() => {
+    })
+    const audioRef = ref(storage, `audio/${filesAudio[0].name}`)
+    uploadBytes(audioRef, filesAudio[0]).then(() => {
+    })
+
   };
 
   return (
