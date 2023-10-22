@@ -7,27 +7,28 @@ import SlidesScrape
 import io
 import re
 
-def extract_notes(audio_file) -> speech.RecognizeResponse:
+def extract_notes(uri) -> speech.RecognizeResponse:
     transcription_keyword_dict = dict()
     client_file = './my_env/hacktx2023-402718-c351f35febef.json'
     credentials = service_account.Credentials.from_service_account_file(client_file)
     delimiter_pattern = r'[.!?]'
     
     
-    with io.open(audio_file, 'rb') as f:
-        content = f.read()
-    # Instantiates a client
+    # with io.open(uri, 'rb') as f:
+    #     content = f.read()
+    # # Instantiates a client
     client = speech.SpeechClient(credentials=credentials)
 
     # The name of the audio file to transcribe
 
-    audio = speech.RecognitionAudio(content=content)
+    audio = speech.RecognitionAudio(uri=uri)
+    # audio = speech.RecognitionAudio(content=content)
 
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
         language_code="en-US",
         sample_rate_hertz = 44100,
-        audio_channel_count = 1,
+        audio_channel_count = 2,
         enable_automatic_punctuation=True
     )
 
